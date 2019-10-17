@@ -2,7 +2,7 @@ import sys
 import os
 import requests
 from bs4 import BeautifulSoup
-
+from urllib.parse import urlparse
 
 # Returns the name of the file
 def get_file_name(URL):
@@ -61,6 +61,7 @@ def save_file(URL):
             name = temp_name
         n += 1
     print("\nDownloading {}".format(name))
+    URL = urlparse(URL)._replace(netloc='yiff.party').geturl()
     in_file = requests.get(URL, stream=True)
     out_file = open(name, 'wb')
     for chunk in in_file.iter_content(chunk_size=8192):
